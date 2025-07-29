@@ -14,16 +14,16 @@ class SMNIST(nn.Module):
         self.actv1 = nn.Tanh()
         self.pool1 = nn.AvgPool2d(3, 2, 1)
 
-        self.conv2 = layers.SConv2d(27, 81, 3, 1, 1)
-        self.actv2 = layers.SActv(0)
-        self.pool2 = layers.SAvgPool2d(3, 2, 1)
-        # self.conv2 = nn.Conv2d(27, 81, 3, 1, 1)
-        # self.actv2 = nn.Tanh()
-        # self.pool2 = nn.AvgPool2d(3, 2, 1)
+        # self.conv2 = layers.SConv2d(27, 81, 3, 1, 1)
+        # self.actv2 = layers.SActv(0)
+        # self.pool2 = layers.SAvgPool2d(3, 2, 1)
+        self.conv2 = nn.Conv2d(27, 81, 3, 1, 1)
+        self.actv2 = nn.Tanh()
+        self.pool2 = nn.AvgPool2d(3, 2, 1)
 
         self.dropout = nn.Dropout(0.2)
-        # self.fc = nn.Linear(81*7*7, num_classes)
-        self.fc = layers.SLinear(81 * 7 * 7, num_classes)
+        self.fc = nn.Linear(81*7*7, num_classes)
+        # self.fc = layers.SLinear(81 * 7 * 7, num_classes)
 
     def forward(self, x):
         x = self.pool1(self.actv1(self.conv1(x)))
