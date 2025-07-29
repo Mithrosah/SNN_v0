@@ -8,7 +8,7 @@ from utils import seed_everything
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-model = MNIST().to(device)
+model = SMNIST().to(device)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
