@@ -1,8 +1,8 @@
+# test script, ignorable
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-
 
 
 def f2s(seq_len, float_tensor: torch.Tensor) -> torch.Tensor:
@@ -29,7 +29,8 @@ def s2f(seq_len, packed_stream: torch.Tensor) -> torch.Tensor:
     total_ones = popcount.sum(dim=-1)
     p = total_ones / seq_len
     return p * 2 - 1
-#
+
+
 # packed = f2s(64, torch.tensor([[0.5, 0.0, -0.3], [0.0, 0.3, 0.1]]))
 # f_num = s2f(64, packed)
 # print(packed)
