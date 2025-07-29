@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 
 
-def mnist_loader(path=r'D:\ProgramMe\MLDatasets'):
+def mnist_loader(path=r'./dataset'):
     transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
