@@ -399,7 +399,7 @@ class SConv2d(nn.Module):
         # the "L" is the number of all possible sliding-window positions
         # the "C_in*kh*kw" is number of pixels of a certain [C_in, kh, kw] region of input tensor
         patches = F.unfold(x, kernel_size=self.kernel_size,
-                           padding=self.padding, stride=self.stride)  # [N, C_in*kh*kw, L], where L = H_out * W_out
+                           padding=self.padding, stride=self.stride, dilation=self.dilation)  # [N, C_in*kh*kw, L], where L = H_out * W_out
         weight_flat = self.weight.view(self.out_channels, -1)  # [C_out, C_in*kh*kw]
 
         '''
