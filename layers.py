@@ -331,7 +331,7 @@ class SConv2d(nn.Module):
         vectorized stackMAJ, support batch processing
         :param x: [batch_size, n]
         :param maj_dim: integer, number of inputs of a single MAJ
-        :return: result: [batch_size,]
+        :return: result: [batch_size, 1]
         '''
 
         if x.dim() == 1:
@@ -358,7 +358,7 @@ class SConv2d(nn.Module):
         return x
 
     @staticmethod
-    def stackMAJ_conv(prod: torch.Tensor, maj_dim: int) -> torch.Tensor:
+    def stackMAJ_conv2d(prod: torch.Tensor, maj_dim: int) -> torch.Tensor:
         '''
         stackMAJ designed for conv2d, support batch processing
         :param prod: [N,C_out, C_in*kh*kw, L]   (conduct stackMAJ to its 3rd dimension)
@@ -382,7 +382,7 @@ class SConv2d(nn.Module):
         # again reshape back to [N, C_out, L]
         result = maj_results.reshape(N, out_channels, L)
 
-        return result
+        return result   # [N, C_out, L]
 
     def forward(self, x):
         N, C, H, W = x.shape
@@ -424,7 +424,7 @@ class SConv2d(nn.Module):
         # a certain element prod[n, m, k, l] means the k-th elementwise product in the l-th sliding-window position in the m-th channel of the n-th sample
 
         # we shall next conduct stackMAJ to its 3rd dimension and squeeze this dimension
-        out_unfolded = SConv2d.stackMAJ_conv(prod, self.maj_dim)
+        out_unfolded = SConv2d.stackMAJ_conv2d(prod, self.maj_dim)
         out = out_unfolded.view(N, self.out_channels, H_out, W_out)
         return out
 
